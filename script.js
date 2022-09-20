@@ -3,5 +3,13 @@ const fileInput = document.querySelector("input"),
 
 downloadBtn.addEventListener("click", (e) => {
    e.preventDefault();
-   console.log(fileInput.value);
+   fetchFile(fileInput.value);
 });
+
+function fetchFile(url) {
+   fetch(url)
+      .then((res) => res.blob())
+      .then((file) => {
+         console.log(file);
+      });
+}

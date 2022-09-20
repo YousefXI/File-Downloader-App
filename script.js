@@ -4,6 +4,7 @@ const fileInput = document.querySelector("input"),
 downloadBtn.addEventListener("click", (e) => {
    e.preventDefault();
    fetchFile(fileInput.value);
+   downloadBtn.innerText = "Downloading file...";
 });
 
 function fetchFile(url) {
@@ -14,9 +15,10 @@ function fetchFile(url) {
          let tempUrl = URL.createObjectURL(file);
          let aTag = document.createElement("a");
          aTag.href = tempUrl;
-         aTag.download = "filename";
+         aTag.download = url.replace(/^.*[\\\/]/, "");
          document.body.appendChild(aTag);
          aTag.click();
          aTag.remove();
+         URL.revokeObjectURL(tempUrl);
       });
 }

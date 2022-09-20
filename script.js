@@ -7,9 +7,16 @@ downloadBtn.addEventListener("click", (e) => {
 });
 
 function fetchFile(url) {
+   // Fetching File & Returning Response as Blob
    fetch(url)
       .then((res) => res.blob())
       .then((file) => {
-         console.log(file);
+         let tempUrl = URL.createObjectURL(file);
+         let aTag = document.createElement("a");
+         aTag.href = tempUrl;
+         aTag.download = "filename";
+         document.body.appendChild(aTag);
+         aTag.click();
+         aTag.remove();
       });
 }
